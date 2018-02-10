@@ -9,21 +9,14 @@ public class DinoMovement : MonoBehaviour
 {
 
     //fields
-    private string rightCommand;
-    private string leftCommand;
-    private string jumpCommand;
-    public GameObject screenMan;
-
+    public SceneManager screenMan;
     //set positions in inspector
     public Vector3[] positions;
 
     // Use this for initialization
     void Start()
     {
-        //set commands based on dinos name
-        rightCommand = (name + ".MoveRight();");
-        leftCommand = (name + ".MoveLeft();");
-        jumpCommand = (name + ".Jump();");
+
 
     }
 
@@ -38,7 +31,7 @@ public class DinoMovement : MonoBehaviour
     public void SetLoc()
     {
         //input is move right
-        if(screenMan.GetInput() == rightCommand)
+        if(screenMan.ReadInput() == rightCommand)
         {
             //if on right edge, loop round to position 1
             if(loc == 2)
@@ -51,7 +44,7 @@ public class DinoMovement : MonoBehaviour
             }
         }
         //input is move left
-        else if(screenMan.GetInput() == leftCommand)
+        else if(screenMan.ReadInput() == leftCommand)
         {
             //if on left edge, loop round to position 3
             if(loc == 0)
@@ -64,7 +57,7 @@ public class DinoMovement : MonoBehaviour
             }
         }
         //input is jump
-        else if(screenMan.GetInput() == jumpCommand)
+        else if(screenMan.ReadInput() == jumpCommand)
         {
             //if in lane 1, jump above that space
             if(loc == 0)
