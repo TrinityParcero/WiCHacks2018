@@ -27,15 +27,13 @@ public class SceneManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Enter))
         {
-            ReadInput();
+            //disable the text field
+            mainInputField.Interactable = false;
+            //read the input
+            ReadInput(mainInputField.text);
         }
     }
-
-    //gets input and saves it as a string
-    public void GetInput()
-    {
-        string input = (mainInputField.text).Trim();
-    }
+    
 
     //reads input and returns it if it is a valid command
     public string ReadInput(string input)
@@ -51,6 +49,10 @@ public class SceneManager : MonoBehaviour
         else if(input == dinosaur.jumpCommand)
         {
             return dinosaur.jumpCommand;
+        }
+        else
+        {
+            return "dino doesn't know how to do that!";
         }
     }
 }
