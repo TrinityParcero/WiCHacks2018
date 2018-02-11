@@ -9,70 +9,85 @@ public class DinoMovement : MonoBehaviour
 {
 
     //fields
-    public SceneManager screenMan;
+    public SceneManager sceneMan;
+	public Dino dino;
+	public int moveDelay;
     //set positions in inspector
-    public Vector3[] positions;
+	public Vector3[] positions;
 
     // Use this for initialization
     void Start()
     {
-
+		moveDelay = 0;
+		//sceneMan = GetComponent<SceneManager> ();
+		positions = new Vector3[30];
+		positions [0] = new Vector3 (-5, -3, 0);
+		positions [1] = new Vector3 (0, -3, 0);
+		positions [2] = new Vector3 (5, -3, 0);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        SetLoc();
-        Move();
+		if (moveDelay == 30) 
+		{
+			SetLoc ();
+			Move ();
+			moveDelay = 0;
+		} 
+		else 
+		{
+			moveDelay++;
+		}
     }
 
     //checks for input of commands
     public void SetLoc()
     {
         //input is move right
-        if(screenMan.ReadInput() == rightCommand)
+        if(sceneMan.ReadInput() == dino.rightCommand)
         {
             //if on right edge, loop round to position 1
-            if(loc == 2)
+            if(dino.loc == 2)
             {
-                loc = 0;
+                dino.loc = 0;
             }
             else
             {
-                loc++;
+                dino.loc++;
             }
         }
         //input is move left
-        else if(screenMan.ReadInput() == leftCommand)
+        else if(sceneMan.ReadInput() == dino.leftCommand)
         {
             //if on left edge, loop round to position 3
-            if(loc == 0)
+            if(dino.loc == 0)
             {
-                loc = 2;
+                dino.loc = 2;
             }
             else
             {
-                loc--;
+                dino.loc--;
             }
         }
         //input is jump
-        else if(screenMan.ReadInput() == jumpCommand)
+        else if(sceneMan.ReadInput() == dino.jumpCommand)
         {
             //if in lane 1, jump above that space
-            if(loc == 0)
+            if(dino.loc == 0)
             {
-                loc = 3;
+                dino.loc = 3;
             }
             //and so on
-            if(loc == 1)
+            if(dino.loc == 1)
             {
-                loc = 4;
+                dino.loc = 4;
             }
             //and so forth
-            if(loc == 2)
+            if(dino.loc == 2)
             {
-                loc = 5;
+                dino.loc = 5;
             }
         }
     }
@@ -80,7 +95,7 @@ public class DinoMovement : MonoBehaviour
     //uses loc to set actual position
     public void Move()
     {
-        transform.position = positions[loc];
+        dino.transform.position = positions[dino.loc];
     }
     
 
